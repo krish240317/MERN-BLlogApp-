@@ -44,18 +44,31 @@ const Text = styled(Typography)`
     color: #878787;
     font-size: 12px;
 `;
+
+//initially empty value 
+const signupvalues={
+    name:'',
+    username:'',
+    password:''
+}
 const Login = () => {
 
     const imageURL = 'https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png';
 
     const [account,setaccount]=useState('login');
+    const [signup,setsignupvalues]=useState(setsignupvalues);
+
     const handeltogel=()=>{
         account==='signup' ? setaccount('login') : setaccount('signup');
+    }  
+
+    const oninputchange=(e)=>{
+        setsignupvalues({...signup, [e.target.name] : e.target.value})
     }
     return (
         <Component>
             <Box>
-            <img src={imageURL} alt="login" />
+            <Image src={imageURL} alt="login" />
             {
                 account==='login' ?
             <Wrapper>
@@ -67,9 +80,10 @@ const Login = () => {
             </Wrapper>
             :
             <Wrapper>
-            <TextField variant='standard' label='Name'/>
-            <TextField variant='standard' label='Enter user name'/>
-            <TextField variant='standard'label='Enter Password'/>
+            <TextField variant='standard' onChange={(e)=>oninputchange(e)} name = 'name' label='Name'/>
+            <TextField variant='standard' onChange={(e)=>oninputchange(e)} name='username' label='Enter user name'/>
+            <TextField variant='standard'onChange={(e)=>oninputchange(e)} name = 'password' label='Enter Password'/>
+
             <SignupButton>Sign up</SignupButton>
             <Text style={{ textAlign: 'center' }}>OR</Text>
             <LoginButton variant='contained' onClick={handeltogel}>Already have account </LoginButton>
